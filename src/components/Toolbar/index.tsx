@@ -25,7 +25,11 @@ const ToolbarContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 `;
 
-const Toolbar: FC = () => {
+interface ToolbarProps {
+    onPreview: () => void;
+  }
+
+const Toolbar: FC<ToolbarProps>= ({onPreview}) => {
 
   const { handleDelete, canDelete } = useDeleteComponent();
 
@@ -36,7 +40,9 @@ const Toolbar: FC = () => {
           <Button icon={<SaveOutlined />}>保存</Button>
         </Tooltip>
         <Tooltip title="预览">
-          <Button icon={<EyeOutlined />}>预览</Button>
+          <Button icon={<EyeOutlined />}
+          onClick={onPreview}
+          >预览</Button>
         </Tooltip>
         <Tooltip title="撤销 (Ctrl+Z)">
           <Button icon={<UndoOutlined />}>撤销</Button>

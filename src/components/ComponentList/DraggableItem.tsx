@@ -24,6 +24,8 @@ const ItemContent = styled.div`
 `;
 
 const DraggableItem: FC<DraggableItemProps> = ({ component }) => {
+
+  console.log("左侧组件列表",component)
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'COMPONENT',
     item: { type: 'COMPONENT', component },

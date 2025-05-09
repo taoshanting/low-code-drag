@@ -24,10 +24,6 @@ const CanvasContainer = styled.div`
   position: relative;
   padding: 20px;
   box-sizing: border-box;
-
-  .react-grid-layout {
-    background: #fff;
-  }
 `;
 
 // ... 其他代码保持不变 ...
@@ -56,7 +52,7 @@ const Canvas: FC = () => {
               i: uuidv4(),
               x: Math.min(x, GRID_LAYOUT_CONFIG.cols - 4),
               y: Math.max(0, y),
-              w: 4,
+              w: 6,
               h: 4
             }
           };

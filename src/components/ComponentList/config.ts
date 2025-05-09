@@ -21,8 +21,8 @@ export const componentCategories: IComponentCategory[] = [
           placeholder: '请输入',
         },
         defaultStyle: {
-          width: 200,
-          height: 40,
+          width: '100%',
+          height: '100%',
         },
       },
       {
@@ -33,8 +33,7 @@ export const componentCategories: IComponentCategory[] = [
           placeholder: '请选择',
         },
         defaultStyle: {
-          width: 200,
-          height: 40,
+          width: '100%',
         },
       },
     ],
