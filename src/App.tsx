@@ -7,8 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import ComponentList from './components/ComponentList';
 import Canvas from './components/Canvas';
 import PropertyPanel from './components/PropertyPanel';
-import 'antd/dist/antd.css'; // 注意：antd 4.x 使用这个样式文件
-
+import Toolbar from './components/Toolbar';
 const { Sider, Content } = Layout;
 
 const StyledLayout = styled(Layout)`
@@ -42,13 +41,16 @@ const MainLayout = styled(Layout)`
 `;
 
 const App: FC = () => {
+ 
   return (
+    <>
     <DndProvider backend={HTML5Backend}>
       <StyledLayout>
         <StyledSider width={300}>
           <ComponentList />
         </StyledSider>
         <MainLayout>
+        <Toolbar />
           <StyledContent>
             <Canvas />
           </StyledContent>
@@ -58,6 +60,7 @@ const App: FC = () => {
         </StyledSider>
       </StyledLayout>
     </DndProvider>
+    </>
   );
 };
 

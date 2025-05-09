@@ -9,7 +9,7 @@ import 'react-resizable/css/styles.css';
 import styled from 'styled-components';
 import { GRID_LAYOUT_CONFIG } from './config';
 import type { IComponentMeta, ICanvasComponent } from '../../types';
-import { addComponent, updateComponentLayout } from '../../store/componentsSlice';
+import { addComponent, updateComponentLayout, setSelectedId } from '../../store/componentsSlice';
 import CanvasComponent from './CanvasComponent';
 import type { RootState } from '../../store';
 import { v4 as uuidv4 } from 'uuid';
@@ -82,10 +82,17 @@ const Canvas: FC = () => {
     });
   };
 
+  const handleCanvasClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      dispatch(setSelectedId(null));
+    }
+  };
+
   return (
     <CanvasContainer
       ref={drop}
       id="canvas-container"
+      onClick={handleCanvasClick}
       style={{
         backgroundColor: isOver ? '#e6f7ff' : '#f5f5f5'
       }}
@@ -96,10 +103,20 @@ const Canvas: FC = () => {
           layout={components.map(c => c.layout)}
           {...GRID_LAYOUT_CONFIG}
           onLayoutChange={handleLayoutChange}
+          isDraggable={true}
+          isResizable={true}
           useCSSTransforms={true}
+          preventCollision={false}
+          compactType={null}
+          margin={[10, 10]}
+          containerPadding={[0, 0]}
+          onDragStart={(layout, oldItem, newItem, placeholder, e, element) => {
+            // 阻止事件冒泡
+            e.stopPropagation();
+          }}
         >
           {components.map((component) => (
-            <div key={component.layout.i}>
+            <div key={component.layout.i} className="grid-item">
               <CanvasComponent component={component} />
             </div>
           ))}
