@@ -98,5 +98,21 @@ export const componentCategories: IComponentCategory[] = [
       },
     ],
   },
+  {
+    key: 'business',
+    title: '业务组件',
+    components: [
+      {
+        type: 'overall-sales-data',
+        name: '整体销售数据',
+        icon: 'BarChartOutlined',
+        defaultProps: {},
+        defaultStyle: {
+          width: 400,
+          height: 200,
+        },
+      },
+    ],
+  },
 ];
 

@@ -1,0 +1,63 @@
+.td-card {
+    margin-left: 10px;
+    font-weight: bold;
+    font-family: PingFangSC, 'Microsoft Yahei';
+    padding: 8px 7px 8px 17px;
+    flex: 1;
+    border-radius: 4px;
+    background: linear-gradient(to right, #5e7db9, #3c5b98);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:first-child {
+      margin-left: 0;
+    }
+    .card-sc {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .card-count {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .card-title {
+      font-size: 16px;
+      span {
+        margin-left: 6px;
+      }
+    }
+    .card-number {
+      font-family: Arial-Black;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .card-num-s {
+      font-size: 12px;
+    }
+    .card-num-m {
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .card-unit {
+      margin-left: 4px;
+      margin-right: 0;
+      font-size: 12px;
+      line-height: 22px;
+      min-width: 21px;
+    }
+    &.column {
+      .card-sc {
+        align-items: center;
+        margin-top: 4px;
+      }
+      .card-unit {
+        margin-right: -4px;
+      }
+    }
+  }
+  

@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { Input, Select, Button } from 'antd';
 import styled from 'styled-components';
 import type { IComponentMeta } from '../../types';
+import OverallSalesData from '../Business/overall-sales-data';
 
 const StyledInput = styled(Input)`
   width: 100%;
@@ -21,6 +22,7 @@ export const ComponentMap: Record<string, FC<any>> = {
   input: StyledInput,
   select: StyledSelect,
   button: StyledButton,
+  'overall-sales-data': OverallSalesData,
 };
 
 // 组件属性配置
