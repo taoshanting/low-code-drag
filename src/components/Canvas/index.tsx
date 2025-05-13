@@ -1,5 +1,6 @@
 // src/components/Canvas/index.tsx
 import type { FC } from 'react';
+import React, { useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import type { Layout } from 'react-grid-layout';
@@ -30,6 +31,7 @@ const CanvasContainer = styled.div`
 const Canvas: FC = () => {
   const dispatch = useDispatch();
   const components = useSelector((state: RootState) => state.components.components);
+  const isDraggingRef = useRef(false);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'COMPONENT',
@@ -40,6 +42,9 @@ const Canvas: FC = () => {
         if (containerRect) {
           const x = Math.floor((offset.x - containerRect.left) / (GRID_LAYOUT_CONFIG.rowHeight + GRID_LAYOUT_CONFIG.margin[0]));
           const y = Math.floor((offset.y - containerRect.top) / (GRID_LAYOUT_CONFIG.rowHeight + GRID_LAYOUT_CONFIG.margin[1]));
+          // 计算每格宽度
+          const gridItemWidth = GRID_LAYOUT_CONFIG.width / GRID_LAYOUT_CONFIG.cols;
+          const rowHeight = GRID_LAYOUT_CONFIG.rowHeight;
           
           const newComponent: ICanvasComponent = {
             id: uuidv4(),
@@ -52,8 +57,8 @@ const Canvas: FC = () => {
               i: uuidv4(),
               x: Math.min(x, GRID_LAYOUT_CONFIG.cols - 4),
               y: Math.max(0, y),
-              w: 6,
-              h: 4
+              w: Math.max(1, Math.round((item.component.defaultStyle?.width || 120) / gridItemWidth)),
+              h: Math.max(1, Math.round((item.component.defaultStyle?.height || 40) / rowHeight)),
             }
           };
           
@@ -79,9 +84,9 @@ const Canvas: FC = () => {
   };
 
   const handleCanvasClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
+    // if (e.target === e.currentTarget) {
       dispatch(setSelectedId(null));
-    }
+    // }
   };
 
   return (
@@ -104,16 +109,16 @@ const Canvas: FC = () => {
           useCSSTransforms={true}
           preventCollision={false}
           compactType={null}
-          margin={[10, 10]}
           containerPadding={[0, 0]}
-          onDragStart={(layout, oldItem, newItem, placeholder, e, element) => {
-            // 阻止事件冒泡
-            e.stopPropagation();
+          onDragStart={() => { isDraggingRef.current = true; }}
+          onDragStop={() => {
+            // 拖动结束后短暂延迟再重置，防止onClick和onDragStop同一时刻触发
+            setTimeout(() => { isDraggingRef.current = false; }, 50);
           }}
         >
           {components.map((component) => (
-            <div key={component.layout.i} className="grid-item">
-              <CanvasComponent component={component} />
+            <div key={component.layout.i} className="grid-item" onClick={()=>{console.log('最外层点击')}}>
+              <CanvasComponent component={component} isDraggingRef={isDraggingRef} />
             </div>
           ))}
         </GridLayout>

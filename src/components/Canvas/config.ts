@@ -8,10 +8,11 @@ export const GRID_LAYOUT_CONFIG = {
     verticalCompact: false,
     compactType: null,
     preventCollision: false,
-    margin: [10, 10],
+    margin: [2, 2],
     containerPadding: [0, 0],
     isDraggable: true,
     isResizable: true,
     useCSSTransforms: true,
+    draggableCancel:'.new-ds-overall-sales-data-section',
     draggableHandle: '.grid-item', // 指定可拖拽的区域
   };

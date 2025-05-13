@@ -93,7 +93,6 @@ const Preview: FC = () => {
             useCSSTransforms={true}
             preventCollision={false}
             compactType={null}
-            margin={[10, 10]}
             containerPadding={[0, 0]}
           >
             {components.map((component) => (

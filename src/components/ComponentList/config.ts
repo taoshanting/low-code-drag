@@ -108,8 +108,8 @@ export const componentCategories: IComponentCategory[] = [
         icon: 'BarChartOutlined',
         defaultProps: {},
         defaultStyle: {
-          width: 400,
-          height: 200,
+          width: 800,
+          height: 180,
         },
       },
     ],

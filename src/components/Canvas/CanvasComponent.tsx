@@ -11,6 +11,8 @@ import type { RootState } from '../../store';
 interface CanvasComponentProps {
   component: ICanvasComponent;
   isPreview?: boolean;
+  isDraggingRef?: boolean;
+
 }
 
 const ComponentWrapper = styled.div<{ isSelected: boolean; isPreview?: boolean }>`
@@ -49,16 +51,16 @@ const ComponentContent = styled.div`
   height: 100%;
 `;
 
-const CanvasComponent: FC<CanvasComponentProps> = ({ component, isPreview = false }) => {
+const CanvasComponent: FC<CanvasComponentProps> = ({ component, isPreview = false,isDraggingRef}) => {
   const dispatch = useDispatch();
   const selectedId = useSelector((state: RootState) => state.components.selectedId);
   const Component = ComponentMap[component.type];
 
   const handleClick = (e: React.MouseEvent) => {
-    if (!isPreview) {
-      e.stopPropagation();
-      dispatch(setSelectedId(component.id));
-    }
+    if (!isPreview && !(isDraggingRef && isDraggingRef.current)) {
+        e.stopPropagation();
+        dispatch(setSelectedId(component.id));
+      }
   };
 
   return (
