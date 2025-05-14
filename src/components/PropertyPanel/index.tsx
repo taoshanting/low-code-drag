@@ -1,11 +1,15 @@
 // src/components/PropertyPanel/index.tsx
 import type { FC } from 'react';
-import { Form, Input, Switch, Select, InputNumber } from 'antd';
+import { Form, DatePicker, Select, InputNumber } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store';
 import { updateComponent } from '../../store/componentsSlice';
 import { ComponentConfigs } from '../RegisterComponents';
+import 'dayjs/locale/zh-cn'
+import locale from 'antd/es/date-picker/locale/zh_CN';
+
+console.log('locale',locale)
 
 const PanelContainer = styled.div`
   padding: 16px;
@@ -30,7 +34,7 @@ const PropertyPanel: FC = () => {
   }
 
   const componentConfig = ComponentConfigs[selectedComponent.type];
-
+  console.log('componentConfig',componentConfig)
   const handleValuesChange = (changedValues: any) => {
     const newComponent = {
       ...selectedComponent,
@@ -50,28 +54,36 @@ const PropertyPanel: FC = () => {
         initialValues={selectedComponent.props}
         onValuesChange={handleValuesChange}
       >
-        {componentConfig?.propertyConfig.props.map(prop => {
+        {componentConfig?.propertyConfig.props.map(prop => { 
           switch (prop.type) {
-            case 'string':
+            case 'selectBox':
               return (
                 <Form.Item
-                  key={prop.name}
-                  label={prop.label}
-                  name={prop.name}
-                >
-                  <Input />
-                </Form.Item>
+                key={prop.name}
+                label={prop.name}
+                name={prop.requestBodyKey}
+              >
+                <Select options={prop.defaultValue} />
+              </Form.Item>
               );
-            case 'boolean':
+            case 'date':
               return (
-                <Form.Item
-                  key={prop.name}
-                  label={prop.label}
-                  name={prop.name}
-                  valuePropName="checked"
-                >
-                  <Switch />
-                </Form.Item>
+                <Form.Item label={prop.name} name="date">
+                {prop.range === 'Y' ? (
+                  <DatePicker.RangePicker
+                    format={prop.format || 'YYYY-MM-DD'}
+                    style={{ width: '100%' }}
+                    // value、onChange等可根据你的store做双向绑定
+                  />
+                ) : (
+                  <DatePicker
+                    locale={locale}
+                    format={prop.format || 'YYYY-MM-DD'}
+                    style={{ width: '100%' }}
+                    // value、onChange等可根据你的store做双向绑定
+                  />
+                )}
+              </Form.Item>
               );
             case 'number':
               return (
@@ -97,6 +109,8 @@ const PropertyPanel: FC = () => {
               return null;
           }
         })}
+
+ 
       </Form>
     </PanelContainer>
   );

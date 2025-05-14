@@ -44,14 +44,14 @@ const StyledSider = styled(Sider)`
 
 const MainLayout = styled(Layout)`
   margin-left: 300px;
-  margin-right: 300px;
+  margin-right: 0;
 `;
 
 const Editor: FC = () => {
 
     const navigate = useNavigate();
     const components = useSelector((state: RootState) => state.components.components);
-  
+    const selectedId = useSelector((state: RootState) => state.components.selectedId);
     const handlePreview = async () => {
       // 这里使用一个临时的页面ID，实际项目中应该由后端生成
       const pageId = 'temp';
@@ -74,9 +74,11 @@ const Editor: FC = () => {
             <Canvas />
           </StyledContent>
         </MainLayout>
+        {selectedId && 
         <StyledSider className="right" width={300}>
           <PropertyPanel />
         </StyledSider>
+        }
       </StyledLayout>
     </DndProvider>
     </>

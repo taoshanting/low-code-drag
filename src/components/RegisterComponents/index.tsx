@@ -86,32 +86,56 @@ export const ComponentConfigs: Record<string, IComponentMeta> = {
       ],
     },
   },
-  button: {
-    type: 'button',
-    name: '按钮',
-    defaultProps: {
-      children: '按钮',
-      type: 'primary',
-    },
+  'overall-sales-data': {
+    type: 'overall-sales-data',
+    name: '整体销售数据',
     propertyConfig: {
       props: [
-        {
-          name: 'children',
-          label: '文本',
-          type: 'string',
-        },
-        {
-          name: 'type',
-          label: '类型',
-          type: 'enum',
-          options: [
-            { label: '主按钮', value: 'primary' },
-            { label: '次按钮', value: 'default' },
-            { label: '虚线按钮', value: 'dashed' },
-            { label: '文本按钮', value: 'text' },
-            { label: '链接按钮', value: 'link' },
-          ],
-        },
+        
+            {
+                "type": "date",
+                "name": "数据日期",
+                "range": "N",
+                "format": "YYYY-MM-DD",
+                "defaultValue": {
+                    "自定义": "customDate",
+                    "今日": "today",
+                    "昨日": "yesterday"
+                },
+                "requestBodyKey": "startDate,endDate"
+            },
+      
+            {
+                "type": "selectBox",
+                "name": "ds分类",
+                "defaultValue": [
+                   {value:"0",label:'整体'},
+                   {value:"1",label:'新人'},
+                   {value:"2",label:'存量'}
+                  ],
+                "requestBodyKey": "isFarmer"
+            },
+            {
+                "type": "selectBox",
+                "name": "农夫或传统",
+                "defaultValue": [
+                    {value:"0",label:'整体'},
+                    {value:"2",label:'传统'},
+                    {value:"1",label:'农夫'}
+                ],
+                "requestBodyKey": "dsTypeCode"
+            },
+            {
+                "type": "selectBox",
+                "name": "业绩目标类型",
+                "defaultValue": [
+                  {value:"0",label:'整体'},
+                  {value:"2",label:'传统'},
+                  {value:"1",label:'农夫'}
+                ],
+                "requestBodyKey": "achievementType"
+            }
+        
       ],
     },
   },

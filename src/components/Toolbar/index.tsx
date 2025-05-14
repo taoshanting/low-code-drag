@@ -13,6 +13,7 @@ import { useDeleteComponent } from '../../hooks/useDeleteComponent';
 
 const ToolbarContainer = styled.div`
   top: 0;
+  width:680px;
   left: 300px;
   right: 300px;
   height: 48px;

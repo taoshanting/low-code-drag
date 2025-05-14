@@ -1,5 +1,11 @@
+import Api from './api'
+import {Fetch} from './fetch'
 import Constant from './constant'
+import Utils from './utils'
 
 export {
-    Constant
+    Api,
+    Fetch,
+    Constant,
+    Utils
 }
